@@ -12,6 +12,11 @@ all: $(TARGET)
 SRCS_CC  := $(wildcard *.c)
 SRCS_CPP := $(wildcard *.cpp)
 SRCS_CU  := $(wildcard *.cu)
+
+ifeq ($(NO_CUDA),1)
+SRCS_CU :=
+CXXFLAGS += -DNO_CUDA
+endif
 OBJS  = $(SRCS_CC:.c=.o)
 OBJS += $(SRCS_CPP:.cpp=.o)
 OBJS += $(SRCS_CU:.cu=.o)
@@ -31,4 +36,3 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -f *.o *.a
-

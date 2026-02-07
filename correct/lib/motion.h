@@ -2,6 +2,9 @@
 #define __MOTION_H__
 
 #include <vector>
+#ifdef NO_CUDA
+#include <stdexcept>
+#endif
 
 
 typedef struct
@@ -32,10 +35,19 @@ typedef struct
 std::vector<motion_t> correct_motion(motion_param_t &param,
                                      int num_pages, int width, int height, float ***img);
 
+#ifdef NO_CUDA
+inline std::vector<motion_t> correct_motion_gpu(motion_param_t &,
+                                                int, int, int,
+                                                int,
+                                                float *, float *)
+{
+    throw std::runtime_error("correct_motion_gpu unavailable: built without CUDA");
+}
+#else
 std::vector<motion_t> correct_motion_gpu(motion_param_t &param,
                                         int num_pages, int width, int height,
                                         int num_frames_per_batch,
                                         float *in_image, float *out_image);
-
 #endif
 
+#endif

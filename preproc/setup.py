@@ -9,10 +9,12 @@ NAME = 'lib' + BASENAME
 extension = Extension(
     name=NAME,
     sources=[NAME + '.pyx'],
-    libraries=[BASENAME, 'utils', 'm', 'pthread'],
+    libraries=[BASENAME, 'utils', 'm', 'pthread', 'gomp'],
     language='c++',
     library_dirs=['lib', '../utils'],
     include_dirs=['lib', '../utils', numpy.get_include()],
+    extra_compile_args=['-fopenmp'],
+    extra_link_args=['-fopenmp'],
 )
 
 setup(

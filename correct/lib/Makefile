@@ -2,6 +2,7 @@ UTILS     = ../../utils
 
 CXX       = g++
 CXXFLAGS  = -std=c++11 -O3 -fopenmp -fPIC -I$(UTILS)
+CPPFLAGS  =
 
 TARGET = libcorrect.a
 
@@ -15,7 +16,7 @@ SRCS_CU  := $(wildcard *.cu)
 
 ifeq ($(NO_CUDA),1)
 SRCS_CU :=
-CXXFLAGS += -DNO_CUDA
+CPPFLAGS += -DNO_CUDA
 endif
 OBJS  = $(SRCS_CC:.c=.o)
 OBJS += $(SRCS_CPP:.cpp=.o)
@@ -25,10 +26,10 @@ $(TARGET): $(OBJS)
 	ar rcs $@ $^
 
 .c.o:
-	$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 
 .cpp.o:
-	$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 
 .cu.o:
 	nvcc -c -Xcompiler -fPIC -std=c++11 -O3 $< -o $@

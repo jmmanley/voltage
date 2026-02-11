@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
 
 
 #define MyMalloc(type)                                                       \
@@ -78,4 +77,3 @@ MyMalloc(int)
 MyMalloc(float)
 MyMalloc(double)
 #undef MyMalloc
-

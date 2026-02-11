@@ -2,7 +2,7 @@ name: voltage
 dependencies:
   - python=3.8
   - numpy<1.24
-  - tensorflow-gpu=2.4.1
+  - tensorflow=2.4.1
   - cython
   - tifffile
   - scikit-image
@@ -14,4 +14,3 @@ dependencies:
   - pip:
     - elasticdeform
     - read-roi
-
